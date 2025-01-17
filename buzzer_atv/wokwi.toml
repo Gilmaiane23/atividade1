@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+firmware = 'build/buzzer_atv.uf2'
+elf = 'build/buzzer_atv.elf'
