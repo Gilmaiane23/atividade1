@@ -1,66 +1,39 @@
 #include <pico/stdlib.h>
 
-void setup_keyboard(uint columns[], uint rows[]) {
 
-  // Calcular a quantidade de elementos
-  // int columns_length = sizeof(columns) / sizeof(columns[0]);
-  // int rows_length = sizeof(rows) / sizeof(rows[0]);
-
-  int i;
-  for(i = 0; i < 4; i++) {
-    gpio_init(rows[i]);
-    gpio_set_dir(rows[i], GPIO_OUT);
-    gpio_put(rows[i], true);
+void inicializa_teclado(uint8_t linhas[], uint8_t colunas[], uint8_t n_lin,uint8_t n_col){
+  for(uint8_t i=0; i<n_lin; i++){
+    gpio_init(linhas[i]);
+    gpio_set_dir(linhas[i],GPIO_OUT);
+    gpio_put(linhas[i],1);
   }
 
-  for(i = 0; i < 4; i++) {
-    gpio_init(columns[i]);
-    gpio_set_dir(columns[i], GPIO_IN);
+  for(uint8_t i=0; i<n_col; i++){
+    gpio_init(colunas[i]);
+    gpio_set_dir(colunas[i],GPIO_IN);
+    gpio_pull_up(colunas[i]);
   }
 }
 
-uint pressioned_column(uint columns[]) {
+char teclado(uint8_t linhas[], uint8_t colunas[], uint8_t n_lin,uint8_t n_col,char teclas[n_lin][n_col] ){
 
-  // Calcular a quantidade de elementos
-  // int columns_length = sizeof(columns) / sizeof(columns[0]);
+  char caractere=' ';
 
-  bool value = false;
-  for(int i = 0; i < 4; i++) {
-    value = gpio_get(columns[i]);
-    if(value) {
-      return i;
+  for(uint8_t i=0; i<n_lin;i++){
+    gpio_put(linhas[i],0);
+
+    for(uint8_t j=0;j<n_col;j++){
+      if(!gpio_get(colunas[j])){
+        caractere=teclas[i][j];
+        
+        while(!gpio_get(colunas[j])){
+          sleep_ms(10);
+        }
+
+        break;
+      }
     }
+    gpio_put(linhas[i],1);
   }
-  return -1;
-}
-
-uint pressioned_row(uint rows[], uint columns[], uint pressioned_column) {
-
-  // Calcular a quantidade de elementos
-  // int rows_length = sizeof(rows) / sizeof(rows[0]);
-
-  bool value = true;
-  for(int i = 0; i < 4; i++) {
-    gpio_put(rows[i], false);
-    value = gpio_get(columns[pressioned_column]);
-    gpio_put(rows[i], true);
-    if(!value) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-char get_pressioned_key(
-  char KEY_MAP[4][4], uint rows[], uint columns[]
-) {
-  uint row;
-  uint column = pressioned_column(columns);
-  if(column >= 0) {
-    row = pressioned_row(rows, columns, column);
-    if(row >= 0) {
-      return KEY_MAP[row][column];
-    }
-  }
-  return '\0';
+  return caractere;
 }

@@ -11,8 +11,10 @@
 #define duty_cycle 0.5
 
 // Define os pinos do teclado com as portas GPIO
-uint rows[] = {17, 18, 19, 20};
-uint columns[] = {4, 8, 9, 16};
+uint8_t rows[] = {17, 18, 19, 20};
+uint8_t columns[] = {4, 8, 9, 16};
+
+uint8_t n_lin=4, n_col=4;
 
 // Mapa de teclas como matriz 4x4
 char KEY_MAP[4][4] = {
@@ -27,11 +29,11 @@ int main() {
 
     init_leds_RGB();
     setup_buzzer(BUZZER_PIN, frequency);
-    setup_keyboard(columns, rows);
+    inicializa_teclado(rows,columns,n_lin,n_col);
 
     while (true) {
 
-        char key = get_pressioned_key(KEY_MAP, rows, columns);
+        char key=teclado(rows,columns,n_lin,n_col,KEY_MAP)
         if(key != 'F') {
             printf("Tecla pressionada: %c\n", key);
 
