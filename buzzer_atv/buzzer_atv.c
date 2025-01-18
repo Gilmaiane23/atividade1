@@ -1,4 +1,5 @@
 #include "pico/stdlib.h"
+#include "hardware/pwm.h"
 #include <stdio.h>
 
 uint8_t linhas[4] = {16, 17, 28, 18};
@@ -11,6 +12,7 @@ char teclas[4][4] = {{'1', '2', '3', 'A'},
 
 #define BUZZER_PIN_1 10
 #define BUZZER_PIN_2 21
+
 
 void inicializa_teclado() {
   for (uint8_t i = 0; i < n_lin; i++) {
@@ -25,13 +27,18 @@ void inicializa_teclado() {
     gpio_pull_up(colunas[i]);
   }
 
-  gpio_init(BUZZER_PIN_1);
-  gpio_set_dir(BUZZER_PIN_1, GPIO_OUT);
-  gpio_put(BUZZER_PIN_1, 0); 
-  gpio_init(BUZZER_PIN_2);
-  gpio_set_dir(BUZZER_PIN_2, GPIO_OUT);
-  gpio_put(BUZZER_PIN_2, 0); 
+  gpio_set_function(BUZZER_PIN_1, GPIO_FUNC_PWM);
+  gpio_set_function(BUZZER_PIN_2, GPIO_FUNC_PWM);
+
+  uint slice1 = pwm_gpio_to_slice_num(BUZZER_PIN_1);
+  uint slice2 = pwm_gpio_to_slice_num(BUZZER_PIN_2);
+
+  pwm_set_wrap(slice1, 2500); 
+  pwm_set_wrap(slice2, 2500);
+  pwm_set_enabled(slice1, true);
+  pwm_set_enabled(slice2, true);
 }
+
 
 char teclado() {
   char caractere = ' ';
@@ -55,6 +62,14 @@ char teclado() {
   return caractere;
 }
 
+
+void buzzer_beep_high(uint buzzer_pin) {
+  uint slice_num = pwm_gpio_to_slice_num(buzzer_pin);
+  pwm_set_gpio_level(buzzer_pin, 1250); 
+  sleep_ms(200); 
+  pwm_set_gpio_level(buzzer_pin, 0);
+}
+
 int main() {
   stdio_init_all();
   inicializa_teclado();
@@ -63,18 +78,13 @@ int main() {
 
   while (1) {
     caracter = teclado();
-    
+
     if (caracter == '#') {
-      gpio_put(BUZZER_PIN_1, 1);
+      buzzer_beep_high(BUZZER_PIN_1);
       printf("\nBuzzer 1 ativado");
-    } else {
-      gpio_put(BUZZER_PIN_1, 0);
-    }
-    if (caracter == '#'){
-    gpio_put(BUZZER_PIN_2, 1);
+
+      buzzer_beep_high(BUZZER_PIN_2);
       printf("\nBuzzer 2 ativado");
-    } else {
-      gpio_put(BUZZER_PIN_2, 0);
     }
 
     if (caracter != ' ') {
