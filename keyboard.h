@@ -1,6 +1,8 @@
 
 #include "pico/stdlib.h"
-uint8_t linhas[4]={16,17,28,18};  //amarelo=28;
+
+// Configuração teclado matricial
+uint8_t linhas[4]={16,17,18,8};  //amarelo=28;
 uint8_t colunas[4]={19,20,4,9};  //azul=19;
 uint8_t n_lin=4,n_col=4;
 
@@ -9,6 +11,19 @@ char teclas[4][4] = {{'1','2','3','A'},
                      {'7','8','9','C'},
                      {'*','0','#','D'}};
 
+
+void menu(){
+    printf("Bem vindo! Comandos disponíveis:\n");
+    printf("  Tecla 1 - Liga o LED vermelho\n");
+    printf("  Tecla 2 - Desliga o LED vermelho\n");
+    printf("  Tecla 3 - Liga o LED verde\n");
+    printf("  Tecla 4 - Desiga o LED verde\n");
+    printf("  Tecla 5 - Liga o LED azul\n");
+    printf("  Tecla 6 - Desiga o LED azul\n");
+    printf("  Tecla # - Aciona o buzzer \n");
+
+}   
+// Inicializa o teclado matricial
 void inicializa_teclado(){
   for(uint8_t i=0; i<n_lin; i++){
     gpio_init(linhas[i]);
@@ -23,6 +38,8 @@ void inicializa_teclado(){
   }
 }
 
+
+// Verifica tecla pressionada
 char teclado(){
 
   char caractere=' ';
