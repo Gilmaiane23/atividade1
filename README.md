@@ -3,7 +3,7 @@
 ## **Descrição do Projeto**
 **Objetivo do projeto:** Com fim a aprimorar os conceitos básicos de programação em Sistemas Embarcados, este projeto desenvolvido na placa Raspberry 
 Pi Pico W, utiliza um **Teclado Matricial 4x4** para controlar um **LED RGB** e um **buzzer**, todos conectados aos pinos GPIO da respectiva placa. Baseada no **microcontrolador 
-RP 2040**, a placa foi programada em **linguagem C **seguindo os padrões da **Pico C/C++ SDK**, além de contar com o ambiente de simulação Wokwi que permite o monitoramento
+RP 2040**, a placa foi programada em **linguagem C** seguindo os padrões da **Pico C/C++ SDK**, além de contar com o ambiente de simulação Wokwi que permite o monitoramento
 serial do sistema. Para a aplicação prática foi utilizada a placa **BitDogLab** (esta comporta uma Raspberry Pi Pico W) que conta com um LED RGB (pinos: 11 (verde), 12(azul), 13(vermelho)) e um buzzer (pinos: 10 e 21).
 
 
