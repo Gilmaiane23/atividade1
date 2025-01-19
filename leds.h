@@ -4,16 +4,16 @@
 #define LED_GREEN 11
 #define LED_BLUE 12
 
+void init_led(int led) {
+    gpio_init(led);
+    gpio_set_dir(led, GPIO_OUT);
+}
+
 // Inicializa LEDs
 void init_leds_RGB() {
-    gpio_init(LED_RED);
-    gpio_set_dir(LED_RED, GPIO_OUT);
-
-    gpio_init(LED_GREEN);
-    gpio_set_dir(LED_GREEN, GPIO_OUT);
-
-    gpio_init(LED_BLUE);
-    gpio_set_dir(LED_BLUE, GPIO_OUT);
+    init_led(LED_RED);
+    init_led(LED_GREEN);
+    init_led(LED_BLUE);
 }
 
 // Liga LED

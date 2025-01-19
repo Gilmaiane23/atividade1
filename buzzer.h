@@ -4,45 +4,31 @@
 
 //Definições buzzer
 #define BUZZER_PIN 10
-  
-// Função PWM para buzzer
-void setup_buzzer(uint buzzer_pin, uint frequency) {
-    // Configura o pino do buzzer para PWM
-    gpio_set_function(buzzer_pin, GPIO_FUNC_PWM);
-    
-    // Obtém o slice do pino
-    uint slice_num = pwm_gpio_to_slice_num(buzzer_pin);
+const uint FREQUENCIA_PADRAO_RASPBERRY_PICO = 125000000;
 
-    // Calcula o divisor de clock
-    uint clock = 125000000;  // Clock padrão do Raspberry Pi Pico em Hz
-    uint divider = clock / (frequency * 4096);
-    if (divider < 1) divider = 1;  // Garante que o divisor seja válido
-    pwm_set_clkdiv(slice_num, divider);
 
-    // Configura o período do PWM
-    pwm_set_wrap(slice_num, 4095);
-
-    // Define o duty cycle como 0% (desligado)
-    pwm_set_gpio_level(buzzer_pin, 0);
-
-    // Não ativa o PWM ainda, apenas configura o slice
-    pwm_set_enabled(slice_num, false);
-}
-
-//Função para ligar buzzer
-void start_buzzer(uint buzzer_pin, uint frequency) {
+void config_buzzer(uint buzzer_pin, uint frequency, uint16_t level, bool enabled) {
     gpio_set_function(buzzer_pin, GPIO_FUNC_PWM); // Configura o pino como PWM
     uint slice_num = pwm_gpio_to_slice_num(buzzer_pin);
 
     // Configura a frequência do PWM
-    uint clock = 125000000; // Clock base do sistema
-    uint divider = clock / (frequency * 4096);
+    uint divider = FREQUENCIA_PADRAO_RASPBERRY_PICO / (frequency * 4096);
     if (divider < 1) divider = 1;
     pwm_set_clkdiv(slice_num, divider);
 
     pwm_set_wrap(slice_num, 4095);                // Resolução do PWM (12 bits)
-    pwm_set_gpio_level(buzzer_pin, 2048);         // Define o duty cycle (50%)
-    pwm_set_enabled(slice_num, true);            // Habilita o PWM
+    pwm_set_gpio_level(buzzer_pin, level);        // Define o duty cycle
+    pwm_set_enabled(slice_num, enabled);
+}
+
+// Função PWM para buzzer
+void setup_buzzer(uint buzzer_pin, uint frequency) {
+    config_buzzer(buzzer_pin, frequency, 0, false);
+}
+
+//Função para ligar buzzer
+void start_buzzer(uint buzzer_pin, uint frequency) {
+    config_buzzer(buzzer_pin, frequency, 2048, true);
 }
 
 //Função para desligar buzzer
