@@ -3,7 +3,7 @@
 ## **Descrição do Projeto**
 **Objetivo do projeto:** Com fim a aprimorar os conceitos básicos de programação em Sistemas Embarcados, este projeto desenvolvido na placa Raspberry 
 Pi Pico W, utiliza um **Teclado Matricial 4x4** para controlar um **LED RGB** e um **buzzer**, todos conectados aos pinos GPIO da respectiva placa. Baseada no **microcontrolador 
-RP 2040**, a placa foi programada em **linguagem C** seguindo os padrões da **Pico C/C++ SDK**, além de contar com o ambiente de simulação Wokwi que permite o monitoramento
+RP 2040**, a placa foi programada em **linguagem C** seguindo os padrões da **Pico C/C++ SDK**, além de contar com o ambiente de simulação **Wokwi** que permite o monitoramento
 serial do sistema. Para a aplicação prática foi utilizada a placa **BitDogLab** (esta comporta uma Raspberry Pi Pico W) que conta com um LED RGB (pinos: 11 (verde), 12(azul), 13(vermelho)) e um buzzer (pinos: 10 e 21).
 
 
@@ -87,13 +87,15 @@ Certifique-se de que os seguintes itens estão instalados:
    
 ### 3. Operação na Prática
 1. Conecte o teclado matricial, o LED RGB e o buzzer aos pinos GPIO indicados no projeto.
-2. Inicie a aplicação.
+2. Inicie a aplicação e o monitoramento serial.
 3. Use o teclado para interagir com os periféricos:
    - Pressione "1" para acender o LED vermelho e "2" para apagá-lo.
    - Teste as demais teclas conforme descrito na seção **Funcionalidades**.
+ 4. Verifique no monitoramento serial (recomenda-se utilizar o Wokwi) as mensagens enviadas. Segue exemplo de mensagem do sistema:
+    ```bash
+    Tecla Pressionada: 1
+    Liga LED vermelho
 
-## **Exemplo de Uso**
-// Inserir vídeo
+## **Vídeo de Apresentação do Projeto**
+Segue o link para a playlist com vídeos de apresentação do projeto: https://www.youtube.com/playlist?list=PLaN_cHSVjBi_61oMWzgSIlcN6AOOQamaZ
 
-## **Licença**
-// Inserir licença educacional
