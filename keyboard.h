@@ -2,7 +2,7 @@
 #include "pico/stdlib.h"
 
 // Configuração teclado matricial
-uint8_t linhas[4]={16,17,18,8};  //amarelo=28;
+uint8_t linhas[4]={16,17,18,28};  //amarelo=28;
 uint8_t colunas[4]={19,20,4,9};  //azul=19;
 uint8_t n_lin=4,n_col=4;
 
