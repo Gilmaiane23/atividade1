@@ -3,7 +3,7 @@
 #include "hardware/clocks.h"
 
 //Definições buzzer
-#define BUZZER_PIN 10
+#define BUZZER_PIN 21
 
 
 // Função PWM para buzzer
