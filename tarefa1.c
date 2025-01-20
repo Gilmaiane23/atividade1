@@ -13,11 +13,10 @@
 int main() {
     stdio_init_all(); // Inicializa a saída padrão para depuração (UART)
     inicializa_teclado(); // Configura o teclado matricial
-    init_leds_RGB();
-    setup_buzzer(BUZZER_PIN, FREQUENCY);
+    init_leds_RGB();    //Inicialização dos leds
+    setup_buzzer(BUZZER_PIN, FREQUENCY);    //Inicialização do buzzer
     menu();
 
-    //char caracter=' ';
     while (true) {
         char tecla = teclado();
         if (tecla != ' ') {
