@@ -97,5 +97,10 @@ Certifique-se de que os seguintes itens estão instalados:
     Liga LED vermelho
 
 ## **Vídeo de Apresentação do Projeto**
-Segue o link para a playlist com vídeos de apresentação do projeto: https://www.youtube.com/playlist?list=PLaN_cHSVjBi_61oMWzgSIlcN6AOOQamaZ
+Confira a playlist com vídeos de apresentação do projeto clicando no ícone abaixo:
+
+<a href="https://www.youtube.com/playlist?list=PLaN_cHSVjBi_61oMWzgSIlcN6AOOQamaZ">
+  <img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="YouTube" />
+</a>
+
 
